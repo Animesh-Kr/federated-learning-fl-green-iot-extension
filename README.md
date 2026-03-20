@@ -46,26 +46,28 @@ The key research question: *Does carbon-aware DQN client selection reduce emissi
 ## How to Run
 
 ### Google Colab (recommended)
-```python
-# Step 1 — Upload FL_CarbonAware_Upgrade.zip to Colab, then:
-from google.colab import files
-uploaded = files.upload()
 
-import zipfile, os
-with zipfile.ZipFile('FL_CarbonAware_Upgrade.zip', 'r') as z:
-    z.extractall('/content/fl_upgrade')
-os.chdir('/content/fl_upgrade')
+> **Use `simulation_colab.py`** — this is a pre-patched version with GPU support
+> and protobuf fixes pre-applied. Run it directly on Colab without any modifications.
+
+```python
+# Step 1 — Upload all .py files to Colab, then:
+import os
+os.chdir('/content/')  # place files here
 
 # Step 2 — Install dependencies
 !pip install "protobuf>=6.31.1"
 !pip install "flwr[simulation]>=1.11.0" torch torchvision pandas matplotlib numpy
 
 # Step 3 — Run
-!python simulation.py
+!python simulation_colab.py
 ```
 **Runtime:** T4 or L4 GPU → ~25–35 min for 100 rounds
 
 ### Local (Windows/Mac/Linux)
+
+> **Use `simulation.py`** — the clean local version without Colab-specific patches.
+
 ```bash
 pip install -r requirements.txt
 python simulation.py
@@ -76,15 +78,16 @@ python simulation.py
 ## Project Structure
 
 ```
-├── simulation.py        ← Main runner (baseline vs proposed, 100 rounds)
-├── green_strategy.py    ← GreenDRLStrategy: FedAvg + DQN override
-├── client.py            ← IoT device simulation (Eq. 2–4 energy model)
-├── model.py             ← CIFAR-10 CNN with BatchNorm
-├── dataset.py           ← CIFAR-10 federated IID partition
-├── carbon_logic.py      ← Stochastic 3-zone carbon grid simulator
-├── dqn_agent.py         ← DQN with experience replay + target network
+├── simulation.py           ← Main runner — local version (Windows/Mac/Linux)
+├── simulation_colab.py     ← Main runner — Colab version (GPU + protobuf patches pre-applied)
+├── green_strategy.py       ← GreenDRLStrategy: FedAvg + DQN override
+├── client.py               ← IoT device simulation (Eq. 2–4 energy model)
+├── model.py                ← CIFAR-10 CNN with BatchNorm
+├── dataset.py              ← CIFAR-10 federated IID partition
+├── carbon_logic.py         ← Stochastic 3-zone carbon grid simulator
+├── dqn_agent.py            ← DQN with experience replay + target network
 ├── requirements.txt
-└── results/             ← Generated CSVs and plots after running
+└── results/                ← Generated CSVs and plots after running
     ├── baseline_results.csv
     ├── proposed_results.csv
     ├── comparison_summary.csv
