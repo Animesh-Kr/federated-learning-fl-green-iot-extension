@@ -146,4 +146,4 @@ This repo is a **personal extension**, kept separate to avoid destabilising the 
 
 This repo demonstrates what happens when you scale the same idea to a harder dataset over more rounds — and shows the carbon benefit only becomes visible with sufficient training.
 
-*Animesh Kumar — Newcastle University — March 2026*
+*Animesh Kumar — Newcastle University*
