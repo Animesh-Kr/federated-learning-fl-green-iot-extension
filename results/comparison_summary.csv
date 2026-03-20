@@ -1,0 +1,3 @@
+run,final_accuracy,peak_accuracy,total_energy,total_carbon,total_compute,total_comm
+baseline,0.726,0.7274,559.953555,0.05421396551074554,16.4344,543.519155
+proposed,0.7176,0.7176,535.714775,0.05208338090277777,15.7864,519.928375
